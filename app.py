@@ -159,10 +159,4 @@ if __name__ == "__main__":
 # pip install Flask
 # pip install Flask-CORS
 
-# python -m venv venv
-
-# venv\Scripts\activate
-
 # python app.py
-
-# deactivate
