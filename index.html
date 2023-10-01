@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD de Dados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+        nav button {
+            background-color: #555;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .form-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin-top: 20px;
+            /* Espaçamento superior */
+        }
+        form {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        button[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .form-field {
+            border-radius: 0.4em;
+            width: 100%;
+            height: 40px;
+            outline-style: none;
+            border-style: none;
+            box-shadow: 0 0 2px black;
+            padding: 0 10px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            /* Adicione um espaçamento inferior entre os campos */
+        }
+        .form-classe {
+            width: 320px !important;
+        }
+        .form-field:focus {
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 3px var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>CRUD de Dados</h1>
+    </header>
+    <nav>
+        <button id="btnAdicionar">Adicionar</button>
+        <button id="btnAtualizar">Atualizar</button>
+        <button id="btnExcluir">Excluir</button>
+        <button id="btnConsultar">Consultar</button>
+    </nav>
+
+    <div class="form-container" id="formAdicionar">
+        <form>
+            <!-- Selecione a classe -->
+            <label for="classeAdicionar">Classe:</label>
+            <select id="classeAdicionar" class="form-field form-classe" required>
+                <option value="professor">Professor</option>
+                <option value="aluno">Aluno</option>
+                <option value="aula_particular">Aula Particular</option>
+            </select>
+
+            <!-- Professor -->
+            <div id="camposProfessor" style="display: contents;">
+                <label for="nomeProfessor">Nome:</label>
+                <input type="text" id="nomeProfessorAdicionar" class="form-field">
+                <label for="idadeProfessor">Idade:</label>
+                <input type="number" id="idadeProfessorAdicionar" class="form-field">
+                <label for="areaProfessor">Área:</label>
+                <input type="text" id="areaProfessorAdicionar" class="form-field">
+            </div>
+
+            <!-- Aluno -->
+            <div id="camposAluno" style="display: none;">
+                <label for="nomeAluno">Nome:</label>
+                <input type="text" id="nomeAlunoAdicionar" class="form-field">
+                <label for="idadeAluno">Idade:</label>
+                <input type="number" id="idadeAlunoAdicionar" class="form-field">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpfAdicionar" class="form-field">
+            </div>
+
+            <!-- Aula Particular -->
+            <div id="camposAulaParticular" style="display: none;">
+                <label for="curso">Curso:</label>
+                <input type="text" id="cursoAdicionar" class="form-field">
+                <label for="alunoAulaParticular">Aluno:</label>
+                <input type="number" id="alunoAulaParticularAdicionar" class="form-field">
+                <label for="professorAulaParticular">Professor:</label>
+                <input type="number" id="professorAulaParticularAdicionar" class="form-field">
+            </div>
+
+            <button type="submit">Adicionar</button>
+        </form>
+    </div>
+
+    <div class="form-container" id="formAtualizar">
+        <form>
+            <label for="classeAtualizar">Classe:</label>
+            <select id="classeAtualizar" class="form-field form-classe" required>
+                <option value="professor">Professor</option>
+                <option value="aluno">Aluno</option>
+                <option value="aula_particular">Aula Particular</option>
+            </select>
+            <label for="idAtualizar">ID/Matricula:</label>
+            <input type="number" id="idAtualizar" class="form-field" required>
+
+            <!-- Professor -->
+            <div id="camposProfessor2" style="display: contents;">
+                <label for="nomeProfessor">Nome:</label>
+                <input type="text" id="nomeProfessor" class="form-field">
+                <label for="idadeProfessor">Idade:</label>
+                <input type="number" id="idadeProfessor" class="form-field">
+                <label for="areaProfessor">Área:</label>
+                <input type="text" id="areaProfessor" class="form-field">
+            </div>
+
+            <!-- Aluno -->
+            <div id="camposAluno2" style="display: none;">
+                <label for="nomeAluno">Nome:</label>
+                <input type="text" id="nomeAluno" class="form-field">
+                <label for="idadeAluno">Idade:</label>
+                <input type="number" id="idadeAluno" class="form-field">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" class="form-field">
+            </div>
+
+            <!-- Aula Particular -->
+            <div id="camposAulaParticular2" style="display: none;">
+                <label for="curso">Curso:</label>
+                <input type="text" id="curso" class="form-field">
+                <label for="alunoAulaParticular">Aluno:</label>
+                <input type="number" id="alunoAulaParticular" class="form-field">
+                <label for="professorAulaParticular">Professor:</label>
+                <input type="number" id="professorAulaParticular" class="form-field">
+            </div>
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+
+    <div class="form-container" id="formExcluir">
+        <form>
+            <label for="classeExcluir">Classe:</label>
+            <select id="classeExcluir" class="form-field form-classe" required>
+                <option value="professor">Professor</option>
+                <option value="aluno">Aluno</option>
+                <option value="aula_particular">Aula Particular</option>
+            </select>
+            <label for="idExcluir">ID/Matricula:</label>
+            <input type="number" id="idExcluir" class="form-field" required>
+            <button type="submit">Excluir</button>
+        </form>
+    </div>
+
+    <div class="form-container" id="formConsultar">
+        <form>
+            <label for="classeConsultar">Classe:</label>
+            <select id="classeConsultar" class="form-field form-classe" required>
+                <option value="professor">Professor</option>
+                <option value="aluno">Aluno</option>
+                <option value="aula_particular">Aula Particular</option>
+            </select>
+            <label for="idConsultar">ID/Matricula:</label>
+            <input type="number" id="idConsultar" class="form-field" required>
+            <button type="submit">Consultar</button>
+
+            <h2>Dados da Consulta:</h2>
+            <pre id="resposta"></pre>
+        </form>
+    </div>
+    <script>
+        //Insercao -> Inicio
+        const classeAdicionar = document.getElementById('classeAdicionar');
+        const camposProfessor = document.getElementById('camposProfessor');
+        const camposAluno = document.getElementById('camposAluno');
+        const camposAulaParticular = document.getElementById('camposAulaParticular');
+
+        classeAdicionar.addEventListener('change', function () {
+            const selectedValue = classeAdicionar.value;
+
+            // Oculta todos os campos
+            camposProfessor.style.display = 'none';
+            camposAluno.style.display = 'none';
+            camposAulaParticular.style.display = 'none';
+
+            // Exibe os campos da classe selecionada
+            if (selectedValue === 'professor') {
+                camposProfessor.style.display = 'contents';
+            } else if (selectedValue === 'aluno') {
+                camposAluno.style.display = 'contents';
+            } else if (selectedValue === 'aula_particular') {
+                camposAulaParticular.style.display = 'contents';
+            }
+        });
+
+        document.getElementById("formAdicionar").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const tabela = document.getElementById("classeAdicionar").value;
+
+            // Coleta os valores dos campos com base na classe selecionada
+            let data = {};
+            if (tabela === "professor") {
+                data = {
+                    "nome": document.getElementById("nomeProfessorAdicionar").value,
+                    "idade": parseInt(document.getElementById("idadeProfessorAdicionar").value),
+                    "area": document.getElementById("areaProfessorAdicionar").value
+                };
+            } else if (tabela === "aluno") {
+                data = {
+                    "nome": document.getElementById("nomeAlunoAdicionar").value,
+                    "idade": parseInt(document.getElementById("idadeAlunoAdicionar").value),
+                    "cpf": document.getElementById("cpfAdicionar").value
+                };
+            } else if (tabela === "aula_particular") {
+                data = {
+                    "curso": document.getElementById("cursoAdicionar").value,
+                    "aluno": parseInt(document.getElementById("alunoAulaParticularAdicionar").value),
+                    "professor": parseInt(document.getElementById("professorAulaParticularAdicionar").value)
+                };
+            }
+
+            fetch(`http://127.0.0.1:5000/post/${tabela}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    // Limpa o formulário após a submissão
+                    if (tabela === "professor") {
+                        document.getElementById("nomeProfessorAdicionar").value = '';
+                        document.getElementById("idadeProfessorAdicionar").value = '';
+                        document.getElementById("areaProfessorAdicionar").value = '';
+                    } else if (tabela === "aluno") {
+                        document.getElementById("nomeAlunoAdicionar").value = '';
+                        document.getElementById("idadeAlunoAdicionar").value = '';
+                        document.getElementById("cpfAdicionar").value = '';
+                    } else if (tabela === "aula_particular") {
+                        document.getElementById("cursoAdicionar").value = '';
+                        document.getElementById("alunoAulaParticularAdicionar").value = '';
+                        document.getElementById("professorAulaParticularAdicionar").value = '';
+                    }
+
+                    if (response.ok) {
+                        alert("Registro inserido com sucesso!");
+                    } else {
+                        alert("Erro ao inserir registro.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao enviar o POST:", error);
+                    alert("Erro ao enviar o POST.");
+                });
+        });
+
+        //Insercao -> Fim
+
+        //Atualizacao -> Inicio
+        const classeAtualizar = document.getElementById('classeAtualizar');
+        const camposProfessor2 = document.getElementById('camposProfessor2');
+        const camposAluno2 = document.getElementById('camposAluno2');
+        const camposAulaParticular2 = document.getElementById('camposAulaParticular2');
+        classeAtualizar.addEventListener('change', function () {
+            const selectedValue = classeAtualizar.value;
+
+            // Oculta todos os campos
+            camposProfessor2.style.display = 'none';
+            camposAluno2.style.display = 'none';
+            camposAulaParticular2.style.display = 'none';
+
+            // Exibe os campos da classe selecionada
+            if (selectedValue === 'professor') {
+                camposProfessor2.style.display = 'contents';
+            } else if (selectedValue === 'aluno') {
+                camposAluno2.style.display = 'contents';
+            } else if (selectedValue === 'aula_particular') {
+                camposAulaParticular2.style.display = 'contents';
+            }
+        });
+        
+        document.getElementById("formAtualizar").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const tabela = document.getElementById("classeAtualizar").value;
+            const id = document.getElementById("idAtualizar").value; // Obtenha o ID do campo
+
+            // Coleta os valores dos campos com base na classe selecionada
+            let data = {};
+            if (tabela === "professor") {
+                data = {
+                    "nome": document.getElementById("nomeProfessor").value,
+                    "idade": parseInt(document.getElementById("idadeProfessor").value),
+                    "area": document.getElementById("areaProfessor").value
+                };
+            } else if (tabela === "aluno") {
+                data = {
+                    "nome": document.getElementById("nomeAluno").value,
+                    "idade": parseInt(document.getElementById("idadeAluno").value),
+                    "cpf": document.getElementById("cpf").value
+                };
+            } else if (tabela === "aula_particular") {
+                data = {
+                    "curso": document.getElementById("curso").value,
+                    "aluno": parseInt(document.getElementById("alunoAulaParticular").value),
+                    "professor": parseInt(document.getElementById("professorAulaParticular").value)
+                };
+            }
+
+            fetch(`http://127.0.0.1:5000/put/${tabela}/${id}`, { // Use o método PUT e inclua o ID na URL
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    // Limpa o formulário após a submissão
+                    if (tabela === "professor") {
+                        document.getElementById("nomeProfessor").value = '';
+                        document.getElementById("idadeProfessor").value = '';
+                        document.getElementById("areaProfessor").value = '';
+                    } else if (tabela === "aluno") {
+                        document.getElementById("nomeAluno").value = '';
+                        document.getElementById("idadeAluno").value = '';
+                        document.getElementById("cpf").value = '';
+                    } else if (tabela === "aula_particular") {
+                        document.getElementById("curso").value = '';
+                        document.getElementById("alunoAulaParticular").value = '';
+                        document.getElementById("professorAulaParticular").value = '';
+                    }
+                    alert("Registro atualizado com sucesso."); // Exibe um alerta de sucesso
+                })
+                .catch(error => {
+                    console.error("Erro ao enviar o PUT:", error);
+                    alert("Erro ao atualizar o registro."); // Exibe um alerta de erro
+                });
+        });
+       
+        //Atualizacao -> Fim
+
+        const btnAdicionar = document.getElementById('btnAdicionar');
+        const btnAtualizar = document.getElementById('btnAtualizar');
+        const btnExcluir = document.getElementById('btnExcluir');
+        const btnConsultar = document.getElementById('btnConsultar');
+
+        const formAdicionar = document.getElementById('formAdicionar');
+        const formAtualizar = document.getElementById('formAtualizar');
+        const formExcluir = document.getElementById('formExcluir');
+        const formConsultar = document.getElementById('formConsultar');
+
+        btnAdicionar.addEventListener('click', () => { // Configura o formulario que sera exibido
+            formAdicionar.style.display = 'block';
+            formAtualizar.style.display = 'none';
+            formExcluir.style.display = 'none';
+            formConsultar.style.display = 'none';
+        });
+
+        btnAtualizar.addEventListener('click', () => { // Configura o formulario que sera exibido
+            formAdicionar.style.display = 'none';
+            formAtualizar.style.display = 'block';
+            formExcluir.style.display = 'none';
+            formConsultar.style.display = 'none';
+        });
+
+        btnExcluir.addEventListener('click', () => { // Configura o formulario que sera exibido
+            formAdicionar.style.display = 'none';
+            formAtualizar.style.display = 'none';
+            formExcluir.style.display = 'block';
+            formConsultar.style.display = 'none';
+        });
+
+        btnConsultar.addEventListener('click', () => { // Configura o formulario que sera exibido
+            formAdicionar.style.display = 'none';
+            formAtualizar.style.display = 'none';
+            formExcluir.style.display = 'none';
+            formConsultar.style.display = 'block';
+        });
+
+        //Consulta -> Inicio
+        document.getElementById("formConsultar").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const id = document.getElementById("idConsultar").value;
+            const tabela = document.getElementById("classeConsultar").value;
+
+            fetch(`http://127.0.0.1:5000/get/${tabela}/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("resposta").textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error("Erro ao enviar o GET:", error);
+                });
+        });
+        //Consulta -> Fim
+
+        // Remocao -> Inicio
+        document.getElementById("formExcluir").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const tabela = document.getElementById("classeExcluir").value;
+            const id = document.getElementById("idExcluir").value;
+
+            // Chamar a rota de exclusao
+            fetch(`http://127.0.0.1:5000/delete/${tabela}/${id}`, {
+                method: "DELETE",
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message); // Exibe uma mensagem de sucesso ou erro
+                    document.getElementById("idExcluir").value = ''; // Limpa o campo de ID
+                })
+                .catch(error => {
+                    console.error("Erro ao enviar o DELETE:", error);
+                });
+        });
+        // Remocao -> Fim
+    </script>
+</body>
+</html>
